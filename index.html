@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Референдум Ницшау - Расширение автономии города</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      body {
+    background-image: url('https://i.pinimg.com/originals/c4/6d/b8/c46db8a6477eb68fa614689c00674e66.jpg');
+    background-size: cover; /* Изображение будет растягиваться, чтобы покрыть весь экран */
+    background-position: center center; /* Изображение будет выровнено по центру */
+    background-attachment: fixed; /* Изображение будет фиксировано при прокрутке */
+    height: 100vh; /* Высота body будет равна высоте экрана */
+    margin: 0; /* Убирает отступы */
+}
+      body {
+          font-family: Arial, sans-serif;
+          background-color: #f4f4f9;
+          color: #333;
+          margin: 0;
+          padding: 0;
+      }
+
+      header {
+          background-color: #2d3e50;
+          color: white;
+          text-align: left;
+          padding: 20px;
+      }
+
+      h1 {
+          margin: 0;
+          font-size: 2.5em;
+      }
+
+      .container {
+          padding: 20px;
+      }
+
+      .info-section {
+          background-color: #ffffff;
+          margin-bottom: 20px;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+          color: #2d3e50;
+      }
+
+      p {
+          font-size: 1.1em;
+          line-height: 1.6;
+      }
+
+      .vote-section {
+          background-color: #ffffff;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .vote-button {
+          background-color: #4CAF50;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          font-size: 1.2em;
+          cursor: pointer;
+          margin-top: 20px;
+      }
+
+      .vote-button:hover {
+          background-color: #45a049;
+      }
+
+      footer {
+          background-color: #2d3e50;
+          color: white;
+          text-align: center;
+          padding: 10px;
+          position: fixed;
+          width: 100%;
+          bottom: 0;
+      }
+
+      .response-section {
+          background-color: #ffffff;
+          padding: 20px;
+          border-radius: 8px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          margin-top: 20px;
+          font-size: 1.1em;
+          color: #2d3e50;
+          display: none;
+      }
+
+      .error-message {
+          color: red;
+      }
+
+      .thank-you-message {
+          color: darkblue;
+      } 
+
+      .warning-message {
+          color: darkred;
+      }
+       img {
+            max-width: 100%;
+            height: auto;
+            display: block; /* Убирает лишние отступы у изображений */
+            margin: 0 auto; /* Центрирует изображение, если это необходимо */
+        }
+        }
+        .faq-item {
+            margin: 15px 0;
+        }
+        .faq-question {
+            font-weight: bold;
+            cursor: pointer;
+            color: #2c3e50;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .faq-answer {
+            padding: 10px;
+            background-color: #f9f9f9;
+            display: none;
+            border-left: 2px solid #3498db;
+        }
+        .faq-question:hover {
+            background-color: #bdc3c7;
+        }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Референдум Ницшау</h1>
+      <p>О расширении автономных полномочий города Ницшау</p>
+    </header>
+
+    <div class="container">
+      <!-- Информация о референдуме -->
+      <div class="info-section">
+        <h2>О референдуме</h2>
+        <p>
+          Городской Совет Ницшау инициировал проведение референдума для решения
+          вопроса об расширении автономных полномочий города. Мэр города, Кот
+          Борис, выдвинул предложение о пересмотре административного статуса
+          города, чтобы повысить его экономическую и правовую субъектность.
+        </p>
+        <p>
+          Цель референдума - определить мнение жителей города относительно
+          предложения мэра. Мы приглашаем всех граждан Ницшау принять участие в
+          голосовании.
+        </p>
+         <button onclick="window.location.href='https://drive.google.com/drive/folders/1WD5Qro5tAv3kIk2yqRxItoi7diQBqaY1?usp=sharing'">Ознакомится с документами
+      </div>
+
+      <!-- Форма голосования -->
+      <div class="vote-section">
+        <h2>Ваше мнение</h2>
+        <p>
+          Согласны ли вы с предложением расширить автономные полномочия города
+          Ницшау?
+        </p>
+        <form id="vote-form">
+          <label>
+            <input type="radio" name="vote" value="yes" required /> Да </label
+          ><br />
+          <label>
+            <input type="radio" name="vote" value="no" required /> Нет </label
+          ><br />
+          <button type="submit" class="vote-button">Проголосовать</button>
+        </form>
+      </div>
+
+      <!-- Сообщения после голосования -->
+      <div class="response-section" id="response-message">
+        <p id="message"></p>
+      </div>
+    </div>
+
+    <script>
+      document.getElementById("vote-form").addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const form = event.target;
+          const vote = form.elements["vote"].value;
+          const responseSection = document.getElementById("response-message");
+          const messageElement = document.getElementById("message");
+
+          // Скрыть форму после голосования
+          document.querySelector(".vote-section").style.display = "none";
+          responseSection.style.display = "block";
+
+          // Отображение соответствующего сообщения
+          if (vote === "yes") {
+              messageElement.textContent = "Спасибо, администрация мэра Кота Бориса благодарит вас за ваш вклад в укрепление великого города. Ваша поддержка была зафиксирована в системе, все данные учтены.";
+              messageElement.classList.remove("error-message", "warning-message");
+              messageElement.classList.add("thank-you-message");
+          } else if (vote === "no") {
+              messageElement.textContent = "Ваш протест зафиксирован. мэр Кот Борис примет меры для устранения недовольства. Однако, помните: ваше мнение учтено";
+              messageElement.classList.remove("error-message", "thank-you-message");
+              messageElement.classList.add("warning-message");
+          } else {
+              messageElement.textContent = "Ошибка: вы должны выбрать один из вариантов. Пожалуйста, попробуйте снова.";
+              messageElement.classList.remove("thank-you-message", "warning-message");
+              messageElement.classList.add("error-message");
+          }
+      });
+    </script>
+
+    <!-- Текущие результаты -->
+    <div class="info-section">
+      <h2>Текущие результаты</h2>
+      <p>Да: <span id="yes-votes">4632</span> голосов</p>
+      <p>Нет: <span id="no-votes">3895</span> голосов</p>
+    
+
+    <div class="info-section">
+      <canvas id="ratingsChart" width="400" height="200"></canvas>
+    </div>
+
+    <script>
+      // Инициализация данных голосов
+      let yesVotes = 4632;
+      let noVotes = 3895;
+      let totalVotes = yesVotes + noVotes;
+      let timestamps = [0]; // Начальный временной интервал
+      let yesData = [yesVotes];
+      let noData = [noVotes];
+
+      const ctx = document.getElementById('ratingsChart').getContext('2d');
+      const data = {
+          labels: timestamps,
+          datasets: [
+              {
+                  label: 'Да',
+                  data: yesData,
+                  borderColor: 'rgba(54, 162, 235, 1)',
+                  backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                  borderWidth: 2,
+                  tension: 0.0, // Для сглаживания линий
+                  fill: true
+              },
+              {
+                  label: 'Нет',
+                  data: noData,
+                  borderColor: 'rgba(255, 99, 132, 1)',
+                  backgroundColor: 'rgba(255, 99, 132, 0.1)',
+                  borderWidth: 2,
+                  tension: 0.4,
+                  fill: true
+              }
+          ]
+      };
+
+      const config = {
+          type: 'line',
+          data: data,
+          options: {
+              responsive: true,
+              plugins: {
+                  legend: {
+                      display: true,
+                      position: 'top',
+                      labels: {
+                          font: {
+                              size: 14,
+                              weight: 'bold'
+                          },
+                          color: '#333'
+                      }
+                  },
+                  tooltip: {
+                      callbacks: {
+                          label: function (context) {
+                              return `${context.dataset.label}: ${context.raw} голосов`;
+                          }
+                      }
+                  }
+              },
+              scales: {
+                  x: {
+                      title: {
+                          display: true,
+                          text: 'Время (секунды)'
+                      }
+                  },
+                  y: {
+                      beginAtZero: true,
+                      title: {
+                          display: true,
+                          text: 'Количество голосов'
+                      }
+                  }
+              }
+          }
+      };
+
+      const ratingsChart = new Chart(ctx, config);
+
+      // Функция для обновления данных
+      function updateChartData() {
+          const voteChange = Math.floor(Math.random() * 50);
+          if (Math.random() < 0.5) {
+              yesVotes += voteChange;
+          } else {
+              noVotes += voteChange;
+          }
+
+          totalVotes = yesVotes + noVotes;
+
+          // Обновляем данные графика
+          timestamps.push(timestamps.length);
+          yesData.push(yesVotes);
+          noData.push(noVotes);
+
+          if (timestamps.length > 20) {
+              timestamps.shift();
+              yesData.shift();
+              noData.shift();
+          }
+
+          ratingsChart.update();
+
+          // Обновляем текстовые данные
+          document.getElementById("yes-votes").textContent = yesVotes;
+          document.getElementById("no-votes").textContent = noVotes;
+          document.getElementById("total-voters").textContent = totalVotes;
+          document.getElementById("yes-percentage").textContent = ((yesVotes / totalVotes) * 100).toFixed(2);
+          document.getElementById("no-percentage").textContent = ((noVotes / totalVotes) * 100).toFixed(2);
+      }
+
+      // Интервал обновления данных
+      setInterval(updateChartData, 2000);
+
+      // Обработчик формы голосования
+      document.getElementById("vote-form").addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const form = event.target;
+          const vote = form.elements["vote"].value;
+          const responseSection = document.getElementById("response-message");
+          const messageElement = document.getElementById("message");
+
+          if (vote === "yes") {
+              yesVotes++;
+          } else if (vote === "no") {
+              noVotes++;
+          }
+
+          updateChartData();
+
+          document.querySelector(".vote-section").style.display = "none";
+          responseSection.style.display = "block";
+
+          if (vote === "yes") {
+              messageElement.textContent = "Спасибо, ваш голос зафиксирован!";
+              messageElement.classList = "thank-you-message";
+          } else if (vote === "no") {
+              messageElement.textContent = "Ваш протест учтён. Спасибо за участие!";
+              messageElement.classList = "warning-message";
+          } else {
+              messageElement.textContent = "Ошибка: вы должны выбрать один из вариантов.";
+              messageElement.classList = "error-message";
+          }
+
+          form.reset();
+      });
+    </script>
+    
+    
+<div class="container">
+    <h1>Часто задаваемые вопросы (FAQ)</h1>
+    <p style="text-align: center; font-size: 16px;">На этом сайте вы можете ознакомиться с ответами на часто задаваемые вопросы, касающиеся голосования по расширению полномочий города Ницшау. Пожалуйста, ознакомьтесь с информацией перед тем, как принять участие в голосовании.</p>
+
+    <div class="faq-item">
+        <div class="faq-question">Что такое референдум по расширению полномочий города Ницшау?</div>
+        <div class="faq-answer">
+            <p>Это процесс, при котором жители города Ницшау могут выразить свое мнение по вопросу увеличения автономных полномочий города. Это включает в себя право на самостоятельное принятие решений в области бюджета, социальной политики, налогообложения и других ключевых вопросов управления.</p>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Какие полномочия будут переданы городу после положительного исхода референдума?</div>
+        <div class="faq-answer">
+            <p>После положительного решения референдума город Ницшау получит право самостоятельно разрабатывать и утверждать бюджет, устанавливать налоги и собирать сборы для местных нужд, а также разрабатывать программы в области социальной политики и инфраструктуры.</p>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Как пройдет голосование?</div>
+        <div class="faq-answer">
+            <p>Голосование будет проходить онлайн. Каждый зарегистрированный житель города Ницшау получит возможность проголосовать за или против расширения полномочий города. Для участия в голосовании необходимо пройти процедуру авторизации на сайте и следовать инструкциям.</p>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Как узнать, что моё голосование было учтено?</div>
+        <div class="faq-answer">
+            <p>После того как вы завершите голосование, на экране отобразится сообщение, подтверждающее регистрацию вашего голоса. Также будет доступна возможность проверить вашу учётную запись и статус вашего голосования в личном кабинете.</p>
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question">Что будет, если референдум не пройдет?</div>
+        <div class="faq-answer">
+            <p>Если на референдуме не будет достигнуто необходимого количества голосов в поддержку расширения полномочий, то в ближайшее время будут проведены дополнительные общественные слушания для дальнейшего обсуждения инициативы и корректировки предложений.</p>
+        </div>
+    </div>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // JavaScript для активации раскрывающихся ответов
+    document.querySelectorAll('.faq-question').forEach(item => {
+        item.addEventListener('click', () => {
+            const answer = item.nextElementSibling;
+            answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+        });
+    });
+</script>
+  </body>
+</html>
